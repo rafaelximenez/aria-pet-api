@@ -6,7 +6,7 @@
     "password": "123",
     "database": "ariapet",
     "migrations": ["./src/database/migrations/*.ts"],
-    "entities": ["./src/modules/pets/entities/*.ts"],
+    "entities": ["./src/modules/pets/entities/*.ts", "./src/modules/accounts/entities/*.ts"],
     "cli": {
         "migrationsDir": "./src/database/migrations"
     }

@@ -6,8 +6,6 @@ import { getRepository, Repository } from 'typeorm';
 class PetsRepository implements IPetsRepository{
     private repository: Repository<Pet>;
 
-    private static INSTANCE: PetsRepository;
-
     constructor(){
         this.repository = getRepository(Pet);
     }
