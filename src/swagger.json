@@ -1,0 +1,150 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title": "Aria Pet API Documentation",
+        "description": "This is an API",
+        "version": "1.0.0",
+        "contact": {
+            "email": "rximenez97@gmail.com"
+        }
+    },
+    "paths": {
+        "/breeds":{
+            "post": {
+                "tags": ["Breed"],
+                "summary":"Create a breed",
+                "description": "Create a new breed",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name":"SDR",
+                                    "description": "Sem raça definida - pets"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500":{
+                        "description": "Breed already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Breed"],
+                "summary":"List all breeds",
+                "description": "List all breeds",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties":{
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            }  
+                                        }                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "/pets":{
+            "post": {
+                "tags": ["Pet"],
+                "summary":"Create a pet",
+                "description": "Create a new pet",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "yearsOld": {
+                                        "type": "integer"
+                                    },
+                                    "genre": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name":"Scooby",
+                                    "yearsOld": 13,
+                                    "genre": "M"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500":{
+                        "description": "Pet already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Pet"],
+                "summary":"List all pets",
+                "description": "List all pets",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties":{
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "yearsOld": {
+                                                "type": "integer"
+                                            },
+                                            "genre": {
+                                                "type": "string"
+                                            } 
+                                        }                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
