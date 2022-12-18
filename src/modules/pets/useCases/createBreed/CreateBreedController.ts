@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
+import { container } from 'tsyringe';
+
 import { CreateBreedUseCase } from "./CreateBreedUseCase";
 
 class CreateBreedController{
-    constructor(private createBreedUseCase: CreateBreedUseCase){}
-
-    handle(request: Request, response: Response){
+    async handle(request: Request, response: Response){
         const { name, description } = request.body;
 
-        this.createBreedUseCase.execute({ name, description });
+        const createBreedUseCase = container.resolve(CreateBreedUseCase)
+
+        await createBreedUseCase.execute({ name, description });
 
         return response.status(201).send();
     }

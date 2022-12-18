@@ -1,15 +1,21 @@
 import { IBreedsRepository } from '../../repositories/IBreedsRepository';
 
+import { inject, injectable } from 'tsyringe';
+
 interface IRequest{
     name: string;
     description: string;
 }
 
+@injectable()
 class CreateBreedUseCase {
-    constructor(private breedsRepository: IBreedsRepository){}
+    constructor(
+        @inject('BreedsRepository')
+        private breedsRepository: IBreedsRepository
+    ){}
 
-    execute({ name, description }: IRequest): void{    
-        const breedAlreadyExists = this.breedsRepository.findByName(name);
+    async execute({ name, description }: IRequest): Promise<void> {    
+        const breedAlreadyExists = await this.breedsRepository.findByName(name);
 
         if(breedAlreadyExists) throw new Error('Breed already exists');
 

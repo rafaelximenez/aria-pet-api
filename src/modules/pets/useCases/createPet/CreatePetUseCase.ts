@@ -1,13 +1,19 @@
 import { IPetsRepository } from '../../repositories/IPetsRepository';
 
+import { inject, injectable } from 'tsyringe';
+
 interface IRequest{
     name: string;
     yearsOld: number;
     genre: string; 
 }
 
-class CreatePetUseCase {
-    constructor(private petsRepository: IPetsRepository){}
+@injectable()
+class CreatePetUseCase {    
+    constructor(
+        @inject('PetsRepository')
+        private petsRepository: IPetsRepository
+    ){}
 
     async execute({ name, yearsOld, genre }: IRequest): Promise<void> {
         const petAlreadyExists = await this.petsRepository.findByName(name);

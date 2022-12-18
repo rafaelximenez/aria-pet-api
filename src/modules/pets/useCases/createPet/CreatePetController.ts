@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+
 import { CreatePetUseCase } from './CreatePetUseCase';
 
 class CreatePetController {
-    constructor(private createPetUseCase: CreatePetUseCase){}
-
     async handle(request: Request, response: Response): Promise<Response>{
         const { name, yearsOld, genre } = request.body;
+        
+        const createPetUseCase = container.resolve(CreatePetUseCase)
 
-        await this.createPetUseCase.execute({ name, yearsOld, genre });
+        await createPetUseCase.execute({ name, yearsOld, genre });
         
         return response.status(201).send();
     }

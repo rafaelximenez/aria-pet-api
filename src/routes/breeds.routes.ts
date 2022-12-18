@@ -1,15 +1,13 @@
 import { Router } from 'express';
-import createBreedController from '../modules/pets/useCases/createBreed';
-import { listBreedController } from '../modules/pets/useCases/listBreeds';
+import { CreateBreedController } from '../modules/pets/useCases/createBreed/CreateBreedController';
+import { ListBreedController } from '../modules/pets/useCases/listBreeds/ListBreedController';
 
 const breedsRoutes = Router();
 
-breedsRoutes.get('/', (request, response) => { 
-    return listBreedController.handle(request, response);
-});
+const createBreedController = new CreateBreedController();
+const listBreedController = new ListBreedController();
 
-breedsRoutes.post('/', (request, response) => { 
-    return createBreedController().handle(request, response);
-});
+breedsRoutes.get('/', listBreedController.handle);
+breedsRoutes.post('/', createBreedController.handle);
 
 export { breedsRoutes };

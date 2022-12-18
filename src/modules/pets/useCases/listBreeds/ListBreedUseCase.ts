@@ -1,11 +1,17 @@
 import { Breeds } from "../../entities/Breeds";
 import { IBreedsRepository } from "../../repositories/IBreedsRepository";
 
-class ListBreedUseCase{
-    constructor(private breedsRepository: IBreedsRepository){}
+import { inject, injectable } from 'tsyringe';
 
-    execute(): Breeds[]{
-        const breeds = this.breedsRepository.list();
+@injectable()
+class ListBreedUseCase{
+    constructor(
+        @inject('BreedsRepository')
+        private breedsRepository: IBreedsRepository
+    ){}
+
+    async execute(): Promise<Breeds[]> {
+        const breeds = await this.breedsRepository.list();
 
         return breeds;
     }
