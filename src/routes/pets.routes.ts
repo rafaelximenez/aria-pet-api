@@ -3,7 +3,7 @@ import multer from 'multer';
 
 import { CreatePetController } from '../modules/pets/useCases/createPet/CreatePetController';
 import { ListPetController } from '../modules/pets/useCases/listPets/ListPetsController';
-import importPetController from '../modules/pets/useCases/importPet';
+import { ensureAuthenticated } from '../middlewares/ensureAuthentucated';
 
 const petsRoutes = Router();
 
@@ -14,6 +14,8 @@ const upload = multer({
 
 const createPetController = new CreatePetController();
 const listPetController = new ListPetController();
+
+petsRoutes.use(ensureAuthenticated);
 
 petsRoutes.get('/', listPetController.handle);
 petsRoutes.post('/', createPetController.handle);
