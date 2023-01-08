@@ -1,6 +1,7 @@
 import { IBreedsRepository } from '../../repositories/IBreedsRepository';
 
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../../errors/AppError';
 
 interface IRequest{
     name: string;
@@ -17,7 +18,7 @@ class CreateBreedUseCase {
     async execute({ name, description }: IRequest): Promise<void> {    
         const breedAlreadyExists = await this.breedsRepository.findByName(name);
 
-        if(breedAlreadyExists) throw new Error('Breed already exists');
+        if(breedAlreadyExists) throw new AppError('Breed already exists');
 
         this.breedsRepository.create({ name, description });
     }
